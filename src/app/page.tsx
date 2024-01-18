@@ -1,8 +1,7 @@
-import ProductCard from '@/components/ProductCard/ProductCard'
-import { Button } from '@mui/material'
+import ProductCardList from './components/ProductCardList/ProductCardList'
 
 export default function Home() {
   return (
-    <ProductCard />
+    <ProductCardList />
   )
 }

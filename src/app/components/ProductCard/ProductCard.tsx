@@ -1,5 +1,7 @@
 import {
   Avatar,
+  Box,
+  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -15,7 +17,7 @@ import React from "react";
 
 export default function ProductCard() {
   return (
-    <Card sx={{maxWidth: "400px"}} elevation={1}>
+    <Card sx={{ width: "full" }} elevation={1}>
       <CardActionArea>
         <CardHeader
           avatar={<Avatar>L</Avatar>}
@@ -32,13 +34,18 @@ export default function ProductCard() {
           <Typography variant="h6">PC Gamer Super Pro</Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <IconButton aria-label="add to favorites">
-          <FavoriteOutlined color={"error"}/>
-        </IconButton>
-        <IconButton aria-label="share">
-          <Share />
-        </IconButton>
+      <CardActions sx={{ width: "full", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "start"}}>
+        <Box>
+          <IconButton aria-label="add to favorites">
+            <FavoriteOutlined color={"error"} />
+          </IconButton>
+          <IconButton aria-label="share">
+            <Share />
+          </IconButton>
+        </Box>
+        <Button variant="contained">
+          Contactar
+        </Button>
       </CardActions>
     </Card>
   );
