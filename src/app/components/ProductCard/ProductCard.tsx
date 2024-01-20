@@ -31,7 +31,10 @@ export default function ProductCard() {
           alt="PC Gamer"
         />
         <CardContent>
-          <Typography variant="h6">PC Gamer Super Pro</Typography>
+          <Box display={"flex"} justifyContent={"space-between"}>
+            <Typography variant="h6">PC Gamer Super Pro</Typography>
+            <Typography variant="h5" color={"greenyellow"}>$23.33</Typography>
+          </Box>
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ width: "full", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "start"}}>
