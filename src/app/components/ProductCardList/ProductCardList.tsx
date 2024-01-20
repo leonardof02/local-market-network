@@ -16,6 +16,7 @@ export default function ProductCardList() {
           "1fr 1fr 1fr 1fr 1fr"
         ],
         gap: 2,
+        margin: 3
       }}
     >
       {Array.from({ length: 16 }).map((item, index) => (
