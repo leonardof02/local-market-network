@@ -56,6 +56,9 @@ export default function ProfilePage() {
             <Typography>Guardar</Typography>
           </Box>
         </Button>
+        <Button fullWidth variant="contained" color="error">
+          Cerrar sesion
+        </Button>
       </Paper>
     </Box>
   );
