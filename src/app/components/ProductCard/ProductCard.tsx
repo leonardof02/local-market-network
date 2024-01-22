@@ -33,11 +33,21 @@ export default function ProductCard() {
         <CardContent>
           <Box display={"flex"} justifyContent={"space-between"}>
             <Typography variant="h6">PC Gamer Super Pro</Typography>
-            <Typography variant="h5" color={"greenyellow"}>$23.33</Typography>
+            <Typography variant="h5" color={"greenyellow"}>
+              $23.33
+            </Typography>
           </Box>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ width: "full", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "start"}}>
+      <CardActions
+        sx={{
+          width: "full",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "start",
+        }}
+      >
         <Box>
           <IconButton aria-label="add to favorites">
             <FavoriteOutlined color={"error"} />
@@ -46,9 +56,7 @@ export default function ProductCard() {
             <Share />
           </IconButton>
         </Box>
-        <Button variant="contained">
-          Contactar
-        </Button>
+        <Button variant="contained">Contactar</Button>
       </CardActions>
     </Card>
   );
