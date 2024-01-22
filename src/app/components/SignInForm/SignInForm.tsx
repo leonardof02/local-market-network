@@ -22,6 +22,9 @@ export default function SignUpForm() {
         marginX: "10px",
       }}
     >
+      <Button variant="contained">
+        klsdjflaksjfklasfj
+      </Button>
       <Typography variant="h5">Log In</Typography>
       <TextField type="email" label="Correo Electrónico" />
       <TextField type="password" label="Contraseña" />
