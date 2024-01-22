@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import MaterialNextProvider from "./theme/MaterialNextProvider";
+
 import AppNavbar from "./components/AppNavbar/AppNavbar";
+import BottomNavigationBar from "./components/BottomNavigationBar/BottomNavigationBar";
+import Box from "@mui/material/Box"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MaterialNextProvider>
           <AppNavbar />
           {children}
+          <Box height={60}/>
+          <BottomNavigationBar />
         </MaterialNextProvider>
       </body>
     </html>
