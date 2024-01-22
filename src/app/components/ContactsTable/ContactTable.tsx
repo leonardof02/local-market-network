@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 export default function ContactTable() {
   return (
-    <TableContainer component={Paper} variant="outlined" sx={{ maxWidth: "340px", borderRadius: 2 }}>
+    <TableContainer component={Paper} variant="outlined">
       <Typography variant="h5" padding={2}>
         Contactos
       </Typography>
