@@ -1,12 +1,9 @@
-import Image from "next/image";
-
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 
 import { Delete, Edit } from "@mui/icons-material";
-import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 
 export default function ProductTableRow() {
@@ -21,6 +18,7 @@ export default function ProductTableRow() {
           alt="PC Gamer"
           width={130}
           style={{ aspectRatio: "16/9", borderRadius: 10 }}
+          loading="lazy"
         />
       </TableCell>
       <TableCell align="center">
