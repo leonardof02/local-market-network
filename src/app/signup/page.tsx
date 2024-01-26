@@ -6,6 +6,6 @@ export default function SignUpPage() {
   return (
     <Box display={"flex"} width={"full"} justifyContent={"center"} alignItems={"center"} marginTop={"40px"}>
         <SignUpForm />
-    </Box>  
+    </Box>
   )
 }
