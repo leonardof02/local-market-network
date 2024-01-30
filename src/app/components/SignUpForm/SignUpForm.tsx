@@ -3,14 +3,16 @@
 import { supabase } from "@/services/supabase/supabase";
 import { Regex } from "@/services/validation/Regex";
 import { SxProps } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { signUpUser } from "@/services/supabase/signUpUser";
+import { UserService } from "@/services/supabase/UserService";
 
 interface RegisterForm {
   fullName: string;
@@ -40,11 +42,18 @@ export default function SignUpForm() {
   } = useForm<RegisterForm>();
 
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
 
   async function onSubmit(data: RegisterForm) {
     setLoading(true);
-    await signUpUser(data.email, data.password);
+    await UserService.signUpUser(data.email, data.password);
     setLoading(false);
+  }
+
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    if (!event.target.files) return;
+    if (!event.target.files[0].type.startsWith("image/")) return
+    setProfileImageUrl(URL.createObjectURL(event.target.files[0]));
   }
 
   function validatePasswordRepeat(value: string) {
@@ -79,11 +88,18 @@ export default function SignUpForm() {
         {...register("contact", { required: true, pattern: Regex.CONTACT })}
         error={errors.contact && true}
       />
-      <TextField
-        type="file"
-        helperText="Suba su foto de perfil"
-        label="Foto de perfil (opcional)"
-      />
+      <Box display={"flex"} gap={"20px"} alignItems={"center"}>
+        <TextField
+          type="file"
+          helperText="Suba su foto de perfil"
+          label="Foto de perfil (opcional)"
+          onChange={handleFileChange}
+          sx={{ flexGrow: 1 }}
+        />
+        {profileImageUrl && (
+          <Avatar src={profileImageUrl} alt="Profile Image" sx={{ transform: "translateY(-10px)" }} />
+        )}
+      </Box>
       <TextField
         type="password"
         label="Contraseña"
