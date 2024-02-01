@@ -1,6 +1,5 @@
 "use client";
 
-import { supabase } from "@/services/supabase/supabase";
 import { Regex } from "@/services/validation/Regex";
 import { SxProps } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -13,16 +12,17 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserService } from "@/services/supabase/UserService";
+import { RegisterFormState } from "@/types/ui/RegisterFormState";
 
-interface RegisterForm {
-  fullName: string;
-  email: string;
-  contact: string;
-  profileImageUrl: string;
-  password: string;
-  passwordRepeat: string;
+interface Field {
+  name: string;
+  type: string;
+  label: string;
+  error: boolean;
+  helperText: string;
 }
 
+// --- Styles
 const signUpFormStyles: SxProps = {
   display: "flex",
   flexDirection: "column",
@@ -33,26 +33,30 @@ const signUpFormStyles: SxProps = {
   marginX: "10px",
 };
 
+// --- Fields
+// TODO: Terminate the fields
+const fields: Field[] = [];
+
 export default function SignUpForm() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterForm>();
+  } = useForm<RegisterFormState>();
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
 
-  async function onSubmit(data: RegisterForm) {
+  async function onSubmit(data: RegisterFormState) {
     setLoading(true);
-    await UserService.signUpUser(data.email, data.password);
+    await UserService.registerUser(data);
     setLoading(false);
   }
 
   function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     if (!event.target.files) return;
-    if (!event.target.files[0].type.startsWith("image/")) return
+    if (!event.target.files[0].type.startsWith("image/")) return;
     setProfileImageUrl(URL.createObjectURL(event.target.files[0]));
   }
 
@@ -88,17 +92,25 @@ export default function SignUpForm() {
         {...register("contact", { required: true, pattern: Regex.CONTACT })}
         error={errors.contact && true}
       />
-      <Box display={"flex"} gap={"20px"} alignItems={"center"}>
-        <TextField
+      <Box display={"flex"} gap={"20px"} alignItems={"center"} justifyContent={"end"}>
+        <label htmlFor="profileImage">
+          <Button
+            sx={{ flexGrow: 1 }}
+            onClick={() => {
+              document.getElementById("profileImage")?.click();
+            }}
+          >
+            Seleccionar una foto de perfil
+          </Button>
+        </label>
+        <input
           type="file"
-          helperText="Suba su foto de perfil"
-          label="Foto de perfil (opcional)"
           onChange={handleFileChange}
-          sx={{ flexGrow: 1 }}
+          id="profileImage"
+          name="profileImage"
+          style={{ display: "none" }}
         />
-        {profileImageUrl && (
-          <Avatar src={profileImageUrl} alt="Profile Image" sx={{ transform: "translateY(-10px)" }} />
-        )}
+        {profileImageUrl && <Avatar src={profileImageUrl} alt="Profile Image" />}
       </Box>
       <TextField
         type="password"
