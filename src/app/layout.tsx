@@ -3,10 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import MaterialNextProvider from "./theme/MaterialNextProvider";
 
-import AppNavbar from "./components/AppNavbar/AppNavbar";
-import BottomNavigationBar from "./components/BottomNavigationBar/BottomNavigationBar";
+import AppNavbar from "../components/AppNavbar/AppNavbar";
+import BottomNavigationBar from "../components/BottomNavigationBar/BottomNavigationBar";
 import Box from "@mui/material/Box"
-import AppDrawer from "./components/AppDrawer/AppDrawer";
+import AppDrawer from "../components/AppDrawer/AppDrawer";
 
 const inter = Inter({ subsets: ["latin"] });
 

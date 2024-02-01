@@ -13,6 +13,7 @@ import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserService } from "@/services/supabase/UserService";
 import { RegisterFormState } from "@/types/ui/RegisterFormState";
+import useImagePreview from "@/hooks/useImagePreview";
 
 interface Field {
   name: string;
@@ -46,18 +47,12 @@ export default function SignUpForm() {
   } = useForm<RegisterFormState>();
 
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const profileImageUrl = useImagePreview(watch("profileImage"));
 
   async function onSubmit(data: RegisterFormState) {
     setLoading(true);
     await UserService.registerUser(data);
     setLoading(false);
-  }
-
-  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
-    if (!event.target.files) return;
-    if (!event.target.files[0].type.startsWith("image/")) return;
-    setProfileImageUrl(URL.createObjectURL(event.target.files[0]));
   }
 
   function validatePasswordRepeat(value: string) {
@@ -105,10 +100,9 @@ export default function SignUpForm() {
         </label>
         <input
           type="file"
-          onChange={handleFileChange}
           id="profileImage"
-          name="profileImage"
           style={{ display: "none" }}
+          {...register("profileImage")}
         />
         {profileImageUrl && <Avatar src={profileImageUrl} alt="Profile Image" />}
       </Box>

@@ -1,6 +1,6 @@
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import ProductTableRow from "../components/ProductTableRow/ProductTableRow";
+import ProductTableRow from "../../components/ProductTableRow/ProductTableRow";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";

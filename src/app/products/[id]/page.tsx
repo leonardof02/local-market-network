@@ -1,8 +1,8 @@
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import ContactTable from "@/app/components/ContactsTable/ContactTable";
-import ProductPhotoCarousel from "@/app/components/ProductPhotoCarousel/ProductPhotoCarousel";
+import ContactTable from "@/components/ContactsTable/ContactTable";
+import ProductPhotoCarousel from "@/components/ProductPhotoCarousel/ProductPhotoCarousel";
 
 export default function ProductDetailsPage() {
   return (

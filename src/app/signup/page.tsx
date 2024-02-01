@@ -1,5 +1,5 @@
 import React from 'react'
-import SignUpForm from '../components/SignUpForm/SignUpForm'
+import SignUpForm from '../../components/SignUpForm/SignUpForm'
 import Box from '@mui/material/Box'
 
 export default function SignUpPage() {
