@@ -1,5 +1,7 @@
 "use client";
 
+// --- Imports
+
 import { Regex } from "@/services/validation/Regex";
 import { SxProps } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -9,19 +11,12 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserService } from "@/services/supabase/UserService";
 import { RegisterFormState } from "@/types/ui/RegisterFormState";
 import useImagePreview from "@/hooks/useImagePreview";
-
-interface Field {
-  name: string;
-  type: string;
-  label: string;
-  error: boolean;
-  helperText: string;
-}
+import { useLoading } from "@/hooks/useLoading";
 
 // --- Styles
 const signUpFormStyles: SxProps = {
@@ -34,10 +29,6 @@ const signUpFormStyles: SxProps = {
   marginX: "10px",
 };
 
-// --- Fields
-// TODO: Terminate the fields
-const fields: Field[] = [];
-
 export default function SignUpForm() {
   const {
     register,
@@ -46,13 +37,13 @@ export default function SignUpForm() {
     formState: { errors },
   } = useForm<RegisterFormState>();
 
-  const [isLoading, setLoading] = useState<boolean>(false);
   const profileImageUrl = useImagePreview(watch("profileImage"));
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   async function onSubmit(data: RegisterFormState) {
-    setLoading(true);
+    startLoading();
     await UserService.registerUser(data);
-    setLoading(false);
+    stopLoading();
   }
 
   function validatePasswordRepeat(value: string) {
@@ -84,7 +75,7 @@ export default function SignUpForm() {
             ? "Inserte un numero de telefono válido"
             : "Inserte un numero de telefono por el cual se le pueda contactar"
         }
-        {...register("contact", { required: true, pattern: Regex.CONTACT })}
+        {...register("contact", { pattern: Regex.CONTACT })}
         error={errors.contact && true}
       />
       <Box display={"flex"} gap={"20px"} alignItems={"center"} justifyContent={"end"}>

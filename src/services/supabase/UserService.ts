@@ -11,13 +11,11 @@ export class UserService {
     });
 
     if (error) throw error;
-    if (!data.user) return;
-
-    return data.user.id;
+    if (data.user) return data.user.id;
   }
 
   static async uploadProfileImage(file: File) {
-    const fileName = uuidv4()
+    const fileName = uuidv4();
     const filePath = `${FilePaths.UPLOAD_PATH}/${fileName}`;
     const { data, error } = await supabase.storage.from("profile_images").upload(filePath, file);
 
@@ -28,7 +26,7 @@ export class UserService {
   static async createNewUserProfile(
     formData: RegisterFormState,
     userId: string,
-    profileImageUrl?: string
+    profileImageUrl: string | null
   ) {
     const { data, error } = await supabase.from("user_profile").insert([
       {
@@ -44,10 +42,12 @@ export class UserService {
   }
 
   static async registerUser(formData: RegisterFormState) {
+    let profileImageUrl = null;
     const userId = await UserService.signUpUser(formData);
-    const profileImageUrl = formData.profileImage && await UserService.uploadProfileImage(formData.profileImage[0])
+    if (formData.profileImage && formData.profileImage[0] != null)
+      profileImageUrl = await UserService.uploadProfileImage(formData.profileImage[0]);
     if (!userId) return;
-    const data = await UserService.createNewUserProfile(formData, userId, profileImageUrl );
+    const data = await UserService.createNewUserProfile(formData, userId, profileImageUrl);
     console.log(data);
   }
 }
