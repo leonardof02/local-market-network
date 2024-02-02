@@ -1,5 +1,6 @@
-import { RegisterFormState } from "@/types/ui/RegisterFormState";
+import { v4 as uuidv4 } from "uuid";
 import { supabase } from "./supabase";
+import { RegisterFormState } from "@/types/ui/RegisterFormState";
 import { FilePaths } from "@/types/services/storage";
 
 export class UserService {
@@ -16,7 +17,8 @@ export class UserService {
   }
 
   static async uploadProfileImage(file: File) {
-    const filePath = `${FilePaths.UPLOAD_PATH}/${file.name}`;
+    const fileName = uuidv4()
+    const filePath = `${FilePaths.UPLOAD_PATH}/${fileName}`;
     const { data, error } = await supabase.storage.from("profile_images").upload(filePath, file);
 
     if (error) throw error;
